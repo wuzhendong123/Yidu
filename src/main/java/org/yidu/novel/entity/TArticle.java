@@ -154,8 +154,8 @@ public class TArticle extends BaseTArticle {
      * @return 图片URL
      */
     public String getImgUrl() {
-        String fileName = "";
-        if (getImgflag() == null) {
+//        String fileName = "";
+        /*if (getImgflag() == null) {
             fileName = "nocover.jpg";
         } else {
             switch (getImgflag()) {
@@ -175,19 +175,15 @@ public class TArticle extends BaseTArticle {
                 fileName = "nocover.jpg";
                 break;
             }
-        }
-        String imgUrl = YiDuConstants.yiduConf.getString(YiDuConfig.RELATIVE_IAMGE_PATH) + "/";
-        if (StringUtils.equals("nocover.jpg", fileName)) {
-            imgUrl = imgUrl + fileName;
-        } else {
-            if (YiDuConstants.yiduConf.getBoolean(YiDuConfig.ENABLE_CLEAN_IMAGE_URL, false)) {
-                imgUrl = imgUrl + getArticleno() / YiDuConstants.SUB_DIR_ARTICLES + "-" + getArticleno() + "-"
-                        + Utils.convert2MD5(imgUrl + fileName) + fileName;
-            } else {
-                imgUrl = imgUrl + getArticleno() / YiDuConstants.SUB_DIR_ARTICLES + "/" + getArticleno() + "/"
-                        + fileName;
-            }
-        }
+        }*/
+         String imgUrl = YiDuConstants.yiduConf.getString(YiDuConfig.RELATIVE_IAMGE_PATH) + "/";
+           String imageBase64=Utils.getImageBase64(getArticleno());
+           if(StringUtils.isNotBlank(imageBase64)){
+               imgUrl=String.format("%s,%s","data:image/png;base64",imageBase64);
+           }else{
+               imgUrl = imgUrl + "nocover.jpg";
+           }
+
         return imgUrl;
     }
 

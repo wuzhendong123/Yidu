@@ -13,6 +13,7 @@
 		<spring.version>3.2.11.RELEASE</spring.version>
 		<struts2.version>2.3.32</struts2.version>
 		<hibernate.version>4.2.8.Final</hibernate.version>
+		<docker.image.prefix>yidu</docker.image.prefix>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -225,7 +226,12 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>3.0.1</version>
         </dependency>
-
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.8</version>
+			<scope>provided</scope>
+		</dependency>
     </dependencies>
 	<build>
 		<finalName>YiDuNovel</finalName>
@@ -324,11 +330,29 @@
                 </executions>
             </plugin>-->
 			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.4</version>
+				<executions>
+					<execution>
+						<id>default</id>
+						<goals>
+							<goal>build</goal>
+							<goal>push</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<repository>${docker.image.prefix}/${project.artifactId}</repository>
+					<tag>${project.version}</tag>
+				</configuration>
+			</plugin>
+			<!--<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<!--<configuration> <connectors> <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector"> <port>80</port> 
-					<maxIdleTime>60000</maxIdleTime> </connector </connectors> </configuration>> -->
-			</plugin>
+				&lt;!&ndash;<configuration> <connectors> <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector"> <port>80</port>
+					<maxIdleTime>60000</maxIdleTime> </connector </connectors> </configuration>> &ndash;&gt;
+			</plugin>-->
 		</plugins>
 	</build>
 </project>

@@ -38,11 +38,15 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.wltea.analyzer.IKSegmentation;
 import org.wltea.analyzer.Lexeme;
 import org.yidu.novel.constant.YiDuConfig;
 import org.yidu.novel.constant.YiDuConstants;
 import org.yidu.novel.entity.TChapter;
+import org.yidu.novel.entity.TChapterExt;
+import org.yidu.novel.entity.enums.ChapterExtEnum;
+import org.yidu.novel.service.ChapterExtService;
 
 /**
  * 
@@ -55,6 +59,7 @@ import org.yidu.novel.entity.TChapter;
  * @author shinpa.you
  */
 public class Utils {
+    private static ChapterExtService chapterExtService;
     /**
      * logger
      */
@@ -106,6 +111,7 @@ public class Utils {
         return getContext(chapter, escape, false);
     }
 
+
     /**
      * 取得章节信息
      * 
@@ -121,14 +127,11 @@ public class Utils {
 
         String result = null;
 
-        StringBuilder sb = new StringBuilder();
-        String path = getTextFilePathByChapterno(chapter.getArticleno(), chapter.getChapterno());
+        TChapterExt  tChapterExt=chapterExtService.findByChapterNo(chapter.getChapterno(), ChapterExtEnum.BOOK_TXT);
 
-        File file = new File(path);
         try {
-            if (file.isFile() && file.exists()) {
-                // 判断文件是否存在
-                InputStreamReader read = new InputStreamReader(new FileInputStream(file),
+            if (tChapterExt!=null&&tChapterExt.getContent().length()>0) {
+               /* InputStreamReader read = new InputStreamReader(new FileInputStream(file),
                         YiDuConstants.yiduConf.getString(YiDuConfig.TXT_ENCODING));
                 BufferedReader bufferedReader = new BufferedReader(read);
                 String lineTxt = null;
@@ -143,12 +146,16 @@ public class Utils {
                     }
                 }
                 bufferedReader.close();
-                read.close();
+                read.close();*/
+               String content= tChapterExt.getContent();
+               content=StringEscapeUtils.escapeHtml4(content);
+                content.replaceAll("\\n","<br/>");
+
 
                 if (escape) {
-                    result = sb.toString().replaceAll("\\s", "&nbsp;");
+                    result = content.replaceAll("\\s", "&nbsp;");
                 } else {
-                    result = sb.toString();
+                    result =content;
                 }
                 // 根据配置决定是否采用伪原创
                 if (pseudo) {
@@ -214,15 +221,24 @@ public class Utils {
      *            小说编号
      * @return 小说的图片目录
      */
+    @Deprecated
     public static String getImgDirectoryPathByArticleno(int articleno) {
         String path = YiDuConstants.yiduConf.getString(YiDuConfig.RELATIVE_IAMGE_PATH);
         path = ServletActionContext.getServletContext().getRealPath("/") + "/" + path + "/" + articleno
                 / YiDuConstants.SUB_DIR_ARTICLES + "/" + articleno + "/";
         return path;
     }
+    public static String getImageBase64(int articleno) {
+        TChapterExt tchapterExt=chapterExtService.findByChapterNo(articleno,ChapterExtEnum.COVER_IMAGE);
+        if(tchapterExt!=null){
+            return tchapterExt.getContent();
+        }
+        return null;
+    }
+
 
     /**
-     * 保存文件
+     * 保存文件 //TODO 暂时实现
      * 
      * @param articleno
      *            小说编号
@@ -373,12 +389,13 @@ public class Utils {
     }
 
     /**
-     * 根据小说编号获得小说图片路径
+     * 根据小说编号获得小说图片路径 //TODO 作废
      * 
      * @param articleno
      *            小说编号
      * @return 小说图片路径
      */
+    @Deprecated
     public static String getArticlePicPath(int articleno) {
         String path = YiDuConstants.yiduConf.getString(YiDuConfig.RELATIVE_IAMGE_PATH);
         path = ServletActionContext.getServletContext().getRealPath("/") + "/" + path + "/" + articleno
@@ -545,4 +562,7 @@ public class Utils {
         return keywords;
     }
 
+    public  void setChapterExtService(ChapterExtService chapterExtService) {
+        Utils.chapterExtService = chapterExtService;
+    }
 }

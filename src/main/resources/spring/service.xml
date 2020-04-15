@@ -19,5 +19,8 @@
     <bean id="reviewService" parent="yiduServiceParent" class="org.yidu.novel.service.impl.ReviewServiceImpl" />
     <bean id="subscribeService" parent="yiduServiceParent" class="org.yidu.novel.service.impl.SubscribeServiceImpl" />
     <bean id="upgradeService" parent="yiduServiceParent" class="org.yidu.novel.service.impl.UpgradeServiceImpl" />
+	<bean id="chapterExtService" parent="yiduServiceParent" class="org.yidu.novel.service.impl.ChapterExtServiceImpl" />
+	<bean id="utils"  class="org.yidu.novel.utils.Utils" />
+
 
 </beans>
