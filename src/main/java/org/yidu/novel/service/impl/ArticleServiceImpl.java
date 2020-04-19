@@ -1,5 +1,6 @@
 package org.yidu.novel.service.impl;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -14,6 +15,8 @@ import org.yidu.novel.entity.TArticle;
 import org.yidu.novel.service.ArticleService;
 import org.yidu.novel.utils.Pagination;
 import org.yidu.novel.utils.Utils;
+
+import javax.sql.DataSource;
 
 /**
  * 
@@ -212,6 +215,12 @@ public class ArticleServiceImpl extends HibernateSupportServiceImpl implements A
         List<Object> params = new ArrayList<Object>();
         sql.append("SELECT count(*) FROM t_article where deleteflag = false ");
         buildCondtion(searchBean, sql, params);
+        DataSource dataSource=yiduJdbcTemplate.getDataSource();
+        try {
+            logger.info("dataSource.jdbc="+dataSource.getConnection());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return yiduJdbcTemplate.queryForObject(sql.toString(), params.toArray(), Integer.class);
     }
 

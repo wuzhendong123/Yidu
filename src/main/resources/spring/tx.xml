@@ -28,6 +28,7 @@
 							<prop key="save">PROPAGATION_REQUIRED,-java.lang.Exception</prop>
 							<prop key="delete">PROPAGATION_REQUIRED</prop>
 							<prop key="find">PROPAGATION_REQUIRED</prop>
+							<prop key="findByChapterNo">PROPAGATION_REQUIRED</prop>
 							<prop key="findRandomRecommendArticleList">PROPAGATION_REQUIRED</prop>
 							<prop key="getCount">PROPAGATION_REQUIRED</prop>
 							<prop key="getCountPerCategory">PROPAGATION_REQUIRED</prop>
@@ -49,6 +50,7 @@
 				<value>*Action</value>
 				<value>articleService</value>
 				<value>chapterService</value>
+				<value>chapterExtService</value>
 			</list>
 		</property>
 		<property name="interceptorNames">

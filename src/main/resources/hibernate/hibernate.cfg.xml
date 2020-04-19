@@ -9,6 +9,7 @@
         <mapping class="org.yidu.novel.entity.TArticle" resource="hibernate/TArticle.hbm.xml" />
         <mapping class="org.yidu.novel.entity.TBookcase" resource="hibernate/TBookcase.hbm.xml" />
         <mapping class="org.yidu.novel.entity.TChapter" resource="hibernate/TChapter.hbm.xml" />
+        <mapping class="org.yidu.novel.entity.TChapterExt" resource="hibernate/TChapterExt.hbm.xml" />
         <mapping class="org.yidu.novel.entity.TSystemBlock" resource="hibernate/TSystemBlock.hbm.xml" />
         <mapping class="org.yidu.novel.entity.TUser" resource="hibernate/TUser.hbm.xml" />
         <mapping class="org.yidu.novel.entity.TReview" resource="hibernate/TReview.hbm.xml" />

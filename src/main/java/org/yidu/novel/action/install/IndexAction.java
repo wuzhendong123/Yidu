@@ -513,14 +513,12 @@ public class IndexAction extends AbstractInstallBaseAction {
         }
 
         Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
         try {
             // 链接数据库
             Class.forName("org.postgresql.Driver");
             conn = DriverManager
                     .getConnection(prefixjdbc + dbhost + ":" + dbport + "/postgres", dbusername, dbpassword);
-            stmt = conn.createStatement();
+       /*     stmt = conn.createStatement();
             rs = null;
             // 检查数据库是否存在
             String checkDBsql = "SELECT 1 FROM pg_database WHERE datname = '" + dbname + "'";
@@ -533,14 +531,14 @@ public class IndexAction extends AbstractInstallBaseAction {
             if (dbExist) {
                 stmt.execute("drop database " + dbname);
             }
-            excuteSqlFromFile(conn, "01_createdb.sql", new Object[] { dbname });
+            excuteSqlFromFile(conn, "init\01_createdb.sql", new Object[] { dbname });
             // 切换数据库
             conn = DriverManager.getConnection(prefixjdbc + dbhost + ":" + dbport + "/" + dbname, dbusername,
-                    dbpassword);
+                    dbpassword);*/
             // 建表
-            excuteSqlFromFile(conn, "02_createtable.sql", new Object[] {});
-            excuteSqlFromFile(conn, "03_createindex.sql", new Object[] {});
-            excuteSqlFromFile(conn, "04_master_data.sql", new Object[] { username, Utils.convert2MD5(password) });
+          /*  excuteSqlFromFile(conn, "init\02_createtable.sql", new Object[] {});
+            excuteSqlFromFile(conn, "init\03_createindex.sql", new Object[] {});
+            excuteSqlFromFile(conn, "init\04_master_data.sql", new Object[] { username, Utils.convert2MD5(password) });*/
 
             // 更新jdbc文件
             PropertiesConfiguration jdbcConf = new PropertiesConfiguration(Thread.currentThread()
@@ -584,8 +582,8 @@ public class IndexAction extends AbstractInstallBaseAction {
             return ERROR;
         } finally {
             try {
-                rs.close();
-                stmt.close();
+//                rs.close();
+//                stmt.close();
                 conn.close();
             } catch (SQLException e) {
                 logger.error(e);

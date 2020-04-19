@@ -329,7 +329,7 @@
                     </execution>
                 </executions>
             </plugin>-->
-			<plugin>
+			<!--<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>dockerfile-maven-plugin</artifactId>
 				<version>1.4.4</version>
@@ -346,7 +346,7 @@
 					<repository>${docker.image.prefix}/${project.artifactId}</repository>
 					<tag>${project.version}</tag>
 				</configuration>
-			</plugin>
+			</plugin>-->
 			<!--<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>

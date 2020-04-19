@@ -27,15 +27,19 @@
     </div>
     <!--TODO haserror check-->
     <#if hasError || ( pageType?? && pageType!=4) >
-    <p class="site-logo">
-        <a href="${contextPath}/" title="${getText("label.system.title")}">
-        <img src="${contextPath}/themes/${themeName}/pc/images/logo.png" alt="${getText("label.system.title")} - logo"></a>
-    </p>
-    <div class="site-search">
-    <form action="${contextPath}/search" method="get" >
-       <input name="key" type="text" id="key" onFocus="this.classname='over';if (value =='这是一个神奇的搜索，请输入小说名或作者名'){value =''}" onBlur="this.classname='input'"  value="<#if key??>${key?html}<#else>这是一个神奇的搜索，请输入小说名或作者名</#if>" />
-       <input type="button" id="searchbuttom" value="" style="background:url('${contextPath}/themes/${themeName}/pc/images/search.jpg');border:0px solid;cursor:pointer;" />
-    </form>
+
+<p class="site-logo" style="height:45px;margin-top:30px">
+    <span>如有侵权问题,其他问题请联系</span><span style="font-weight:bold">QQ:${getText("label.system.qq")}</span>
+</p>
+    <div class="site-search" style="width:590px;display:inline">
+
+        <form action="/search" method="get">
+            <input name="key" type="text" id="key" onfocus="this.classname='over';if (value =='这是一个神奇的搜索，请输入小说名或作者名'){value =''}" onblur="this.classname='input'" value="这是一个神奇的搜索，请输入小说名或作者名">
+            <input type="button" id="searchbuttom" value="" style="background:url('/themes/default/pc/images/search.jpg');border:0px solid;cursor:pointer;">
+        </form>
+
+
+
     </div>
     </#if>
   </header>

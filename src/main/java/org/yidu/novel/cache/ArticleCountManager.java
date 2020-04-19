@@ -126,6 +126,7 @@ public class ArticleCountManager {
                         ArticleSearchBean searchBean = new ArticleSearchBean();
                         searchBean.setFullflag(true);
                         int fullcount = articleService.getCountByJDBC(searchBean);
+
                         articleCountMap.put(YiDuConstants.CacheCountType.FULLFLAG, fullcount);
 
                         logger.debug("ArticleCount Manager daemon process going to sleep.");

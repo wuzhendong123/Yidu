@@ -54,7 +54,7 @@ import org.yidu.novel.service.ChapterExtService;
  * 易读工具类
  * </p>
  * Copyright(c) 2014 YiDu-Novel. All rights reserved.
- * 
+ * getImageBase64
  * @version 1.1.9
  * @author shinpa.you
  */
@@ -149,7 +149,7 @@ public class Utils {
                 read.close();*/
                String content= tChapterExt.getContent();
                content=StringEscapeUtils.escapeHtml4(content);
-                content.replaceAll("\\n","<br/>");
+                content=content.replaceAll("\\n","<br/>");
 
 
                 if (escape) {
@@ -562,6 +562,7 @@ public class Utils {
         return keywords;
     }
 
+    @Autowired
     public  void setChapterExtService(ChapterExtService chapterExtService) {
         Utils.chapterExtService = chapterExtService;
     }
